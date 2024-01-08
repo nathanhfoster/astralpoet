@@ -1,7 +1,34 @@
 {
 	"name": "Astral Poet",
 	"short_name": "Astral Poet",
-	"description": "Inscribe your memories",
+	"description": "Capture the essence of your life with a free online journal and diary app",
+	"author": "Nathan Foster",
+	"offline_enabled": true,
+	"keywords": [
+		"react",
+		"redux",
+		"journal",
+		"diary",
+		"astral",
+		"tree",
+		"poet",
+		"pwa",
+		"free",
+		"django"
+	],
+	"categories": [
+		"tools",
+		"store",
+		"free",
+		"themed",
+		"offline",
+		"diary",
+		"astral",
+		"tree",
+		"poet",
+		"pwa",
+		"free"
+	],
 	"icons": [
 		{
 			"src": "/images/icon-192.png",
@@ -26,8 +53,24 @@
 			"purpose": "maskable"
 		}
 	],
-	"start_url": "/?source=pwa",
-	"orientation": "portrait",
+	"shortcuts": [
+		{
+			"name": "Home",
+			"short_name": "Home",
+			"description": "Home page",
+			"url": "/",
+			"icons": [
+				{
+					"src": "/images/icon-192.png",
+					"sizes": "192x192"
+				}
+			]
+		}
+	],
+	"background_color": "#29303b",
+	"theme_color": "#29303b",
+	"start_url": "/",
 	"display": "standalone",
+	"orientation": "portrait",
 	"scope": "/"
 }
