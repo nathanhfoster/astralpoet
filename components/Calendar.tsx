@@ -6,7 +6,18 @@ interface CalendarProps {
 }
 const Calendar: FC<CalendarProps> = () => {
 
-    return <RewindCalendar></RewindCalendar>
+    return <RewindCalendar
+        bordered={false}
+        disabledDates={[]}
+        greenDates={[new Date()]}
+        disabledWeekends={false}
+        horizontalBorders={false}
+        minDate={undefined}
+        maxDate={undefined}
+        radius='lg'
+        shadow='xl'
+        size="xl"
+        verticalBorders={false}></RewindCalendar>
 }
 
 export default Calendar
