@@ -9,6 +9,9 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
+		"@rewind-ui/core": "^0.19.7",
+		"@tailwindcss/forms": "^0.5.7",
+		"@tailwindcss/typography": "^0.5.10",
 		"@typescript-eslint/eslint-plugin": "^6.18.0",
 		"date-fns": "^3.1.0",
 		"date-fns-tz": "^2.0.0",
@@ -20,7 +23,8 @@
 		"next-themes": "^0.2.1",
 		"parser~": "link:\u001b[200~@typescript-eslint/parser~",
 		"react": "18.2.0",
-		"react-dom": "18.2.0"
+		"react-dom": "18.2.0",
+		"tailwind-scrollbar": "^3.0.5"
 	},
 	"devDependencies": {
 		"@types/lodash-es": "^4.17.12",
