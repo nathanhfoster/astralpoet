@@ -118,7 +118,7 @@ const Index = () => {
 
 				<Sidebar.Footer>
 					<div className="flex flex-col justify-center items-center text-sm">
-						<span className="font-semibold">Rewind-UI</span>
+						<span className="font-semibold">Astral Poet</span>
 						<span>version x.y.z</span>
 					</div>
 				</Sidebar.Footer>
