@@ -2,127 +2,19 @@ import React, { useState } from 'react'
 import Section from '@/components/section'
 import Calendar from '@/components/Calendar'
 import EventList from '@/components/EventList'
-import { Button, Overlay, Sidebar, SidebarColor, SidebarState, useSidebar } from '@rewind-ui/core'
-import { RocketLaunch } from '@/packages/ui/src/icons/RocketLaunch'
-import { Briefcase } from '@/packages/ui/src/icons/Briefcase'
-import { Users } from '@/packages/ui/src/icons/Users'
-import { Shield } from '@/packages/ui/src/icons/Shield'
-import { Key } from '@/packages/ui/src/icons/Key'
-import { Sliders } from '@/packages/ui/src/icons/Sliders'
-import { LifeRing } from '@/packages/ui/src/icons/LifeRing'
-import { EnvelopeOpen } from '@/packages/ui/src/icons/EnvelopeOpen'
-import { Book } from '@/packages/ui/src/icons/Book'
-import Image from 'next/image'
+import { Button, Overlay, SidebarColor, useSidebar } from '@rewind-ui/core'
+import Sidebar from '@/components/Sidebar/Sidebar'
+import { SIDEBAR_COLORS } from '@/components/Sidebar/constants'
 
 const Index = () => {
 	const [expanded, setExpanded] = useState(true);
 	const [mobile, setMobile] = useState(false);
 	const sidebar = useSidebar();
-	const [color, setColor] = useState<SidebarColor>('slate');
+	const [color, setColor] = useState<SidebarColor>(SIDEBAR_COLORS[2]);
 
 	return (
-		<div className="relative antialiased flex flex-row bg-slate-100">
-			<Sidebar
-				color={color}
-				onToggle={(state: SidebarState) => {
-					setExpanded(state.expanded);
-					setMobile(state.mobile);
-				}}
-			>
-				<Sidebar.Head>
-					<Sidebar.Head.Logo>
-						<Image alt="Rice Bowl" src="/images/favicon.png" height={28} width={28} />
-					</Sidebar.Head.Logo>
-					<Sidebar.Head.Title>Astral Poet</Sidebar.Head.Title>
-					<Sidebar.Head.Toggle />
-				</Sidebar.Head>
-
-				<Sidebar.Nav>
-					<Sidebar.Nav.Section>
-						<Sidebar.Nav.Section.Item icon={<RocketLaunch />} label="Dashboard" href="/" active>
-							<Sidebar.Nav.Section isChild>
-								<Sidebar.Nav.Section.Item
-									as="button"
-									onClick={() => setColor('white')}
-									icon={<span className="w-1 h-1 rounded bg-transparent" />}
-									label="White"
-									active={color === 'white'}
-								/>
-								<Sidebar.Nav.Section.Item
-									as="button"
-									onClick={() => setColor('gray')}
-									icon={<span className="w-1 h-1 rounded bg-transparent" />}
-									label="Gray"
-									active={color === 'gray'}
-								/>
-								<Sidebar.Nav.Section.Item
-									as="button"
-									onClick={() => setColor('dark')}
-									icon={<span className="w-1 h-1 rounded bg-transparent" />}
-									label="Dark"
-									active={color === 'dark'}
-								/>
-								<Sidebar.Nav.Section.Item
-									as="button"
-									onClick={() => setColor('slate')}
-									icon={<span className="w-1 h-1 rounded bg-transparent" />}
-									label="Slate"
-									active={color === 'slate'}
-								/>
-								<Sidebar.Nav.Section.Item
-									as="button"
-									onClick={() => setColor('zinc')}
-									icon={<span className="w-1 h-1 rounded bg-transparent" />}
-									label="Zinc"
-									active={color === 'zinc'}
-								/>
-							</Sidebar.Nav.Section>
-						</Sidebar.Nav.Section.Item>
-					</Sidebar.Nav.Section>
-
-					<Sidebar.Nav.Section>
-						<Sidebar.Nav.Section.Title>Management</Sidebar.Nav.Section.Title>
-						<Sidebar.Nav.Section.Item icon={<Briefcase />} label="Clients" href="#" />
-						<Sidebar.Nav.Section.Item icon={<Users />} label="Users" as="button">
-							<Sidebar.Nav.Section isChild>
-								<Sidebar.Nav.Section.Item
-									icon={<span className="w-1 h-1 rounded bg-transparent" />}
-									label="List all"
-									href="#"
-								/>
-								<Sidebar.Nav.Section.Item
-									icon={<span className="w-1 h-1 rounded bg-transparent" />}
-									label="Add new"
-									href="#"
-								/>
-								<Sidebar.Nav.Section.Item
-									icon={<span className="w-1 h-1 rounded bg-transparent" />}
-									label="Archived"
-									href="#"
-								/>
-							</Sidebar.Nav.Section>
-						</Sidebar.Nav.Section.Item>
-						<Sidebar.Nav.Section.Item icon={<Shield />} label="Roles" href="#" />
-						<Sidebar.Nav.Section.Item icon={<Key />} label="Permissions" href="#" />
-						<Sidebar.Nav.Section.Item icon={<Sliders />} label="Settings" href="#" />
-					</Sidebar.Nav.Section>
-
-					<Sidebar.Nav.Section>
-						<Sidebar.Nav.Section.Title>Support</Sidebar.Nav.Section.Title>
-						<Sidebar.Nav.Section.Item icon={<LifeRing />} label="Contact" href="#" />
-						<Sidebar.Nav.Section.Item icon={<EnvelopeOpen />} label="Tickets" href="#" />
-						<Sidebar.Separator />
-						<Sidebar.Nav.Section.Item icon={<Book />} label="Documentation" href="#" />
-					</Sidebar.Nav.Section>
-				</Sidebar.Nav>
-
-				<Sidebar.Footer>
-					<div className="flex flex-col justify-center items-center text-sm">
-						<span className="font-semibold">Astral Poet</span>
-						<span>version x.y.z</span>
-					</div>
-				</Sidebar.Footer>
-			</Sidebar>
+		<div className={`relative antialiased flex flex-row bg-slate-100`}>
+			<Sidebar color={color} setExpanded={setExpanded} setMobile={setMobile} setColor={setColor} />
 
 			<main
 				className={`transition-all transform duration-300 text-slate-700 flex w-full min-h-screen flex-col items-center ${expanded ? 'md:ml-[16rem]' : 'md:ml-[4.5rem]'
