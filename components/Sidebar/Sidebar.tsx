@@ -1,18 +1,11 @@
 import React, { FC, memo, useCallback, useMemo } from 'react'
 import { Sidebar as RewindSidebar, SidebarState } from '@rewind-ui/core'
-import { RocketLaunch } from '@/packages/ui/src/icons/RocketLaunch'
-import { Briefcase } from '@/packages/ui/src/icons/Briefcase'
-import { Users } from '@/packages/ui/src/icons/Users'
-import { Shield } from '@/packages/ui/src/icons/Shield'
-import { Key } from '@/packages/ui/src/icons/Key'
-import { Sliders } from '@/packages/ui/src/icons/Sliders'
-import { LifeRing } from '@/packages/ui/src/icons/LifeRing'
-import { EnvelopeOpen } from '@/packages/ui/src/icons/EnvelopeOpen'
-import { Book } from '@/packages/ui/src/icons/Book'
 import Image from 'next/image'
 import { capitalize } from 'lodash-es'
 import { SIDEBAR_COLORS } from './constants'
 import { SidebarProps } from './types'
+import { IconBriefcase, IconKey, IconLifeRing, IconRocketLaunch, IconShield, IconSliders, IconUsers, IconEnvelopeOpen, IconBook } from '@/packages/ui/src/icons'
+
 
 const Sidebar: FC<SidebarProps> = ({ color, setExpanded, setMobile, setColor }) => {
 
@@ -35,7 +28,7 @@ const Sidebar: FC<SidebarProps> = ({ color, setExpanded, setMobile, setColor }) 
 
             <RewindSidebar.Nav>
                 <RewindSidebar.Nav.Section>
-                    <RewindSidebar.Nav.Section.Item icon={<RocketLaunch />} label="Dashboard" href="#" active>
+                    <RewindSidebar.Nav.Section.Item icon={<IconRocketLaunch />} label="Dashboard" href="#" active>
                         <RewindSidebar.Nav.Section isChild>
                             {useMemo(() => SIDEBAR_COLORS.map(c => <RewindSidebar.Nav.Section.Item
                                 key={c}
@@ -51,8 +44,8 @@ const Sidebar: FC<SidebarProps> = ({ color, setExpanded, setMobile, setColor }) 
 
                 <RewindSidebar.Nav.Section>
                     <RewindSidebar.Nav.Section.Title>Management</RewindSidebar.Nav.Section.Title>
-                    <RewindSidebar.Nav.Section.Item icon={<Briefcase />} label="Clients" href="#" />
-                    <RewindSidebar.Nav.Section.Item icon={<Users />} label="Users" as="button">
+                    <RewindSidebar.Nav.Section.Item icon={<IconBriefcase />} label="Clients" href="#" />
+                    <RewindSidebar.Nav.Section.Item icon={<IconUsers />} label="Users" as="button">
                         <RewindSidebar.Nav.Section isChild>
                             <RewindSidebar.Nav.Section.Item
                                 icon={<span className="w-1 h-1 rounded bg-transparent" />}
@@ -71,17 +64,17 @@ const Sidebar: FC<SidebarProps> = ({ color, setExpanded, setMobile, setColor }) 
                             />
                         </RewindSidebar.Nav.Section>
                     </RewindSidebar.Nav.Section.Item>
-                    <RewindSidebar.Nav.Section.Item icon={<Shield />} label="Roles" href="#" />
-                    <RewindSidebar.Nav.Section.Item icon={<Key />} label="Permissions" href="#" />
-                    <RewindSidebar.Nav.Section.Item icon={<Sliders />} label="Settings" href="#" />
+                    <RewindSidebar.Nav.Section.Item icon={<IconShield />} label="Roles" href="#" />
+                    <RewindSidebar.Nav.Section.Item icon={<IconKey />} label="Permissions" href="#" />
+                    <RewindSidebar.Nav.Section.Item icon={<IconSliders />} label="Settings" href="#" />
                 </RewindSidebar.Nav.Section>
 
                 <RewindSidebar.Nav.Section>
                     <RewindSidebar.Nav.Section.Title>Support</RewindSidebar.Nav.Section.Title>
-                    <RewindSidebar.Nav.Section.Item icon={<LifeRing />} label="Contact" href="#" />
-                    <RewindSidebar.Nav.Section.Item icon={<EnvelopeOpen />} label="Tickets" href="#" />
+                    <RewindSidebar.Nav.Section.Item icon={<IconLifeRing />} label="Contact" href="#" />
+                    <RewindSidebar.Nav.Section.Item icon={<IconEnvelopeOpen />} label="Tickets" href="#" />
                     <RewindSidebar.Separator />
-                    <RewindSidebar.Nav.Section.Item icon={<Book />} label="Documentation" href="#" />
+                    <RewindSidebar.Nav.Section.Item icon={<IconBook />} label="Documentation" href="#" />
                 </RewindSidebar.Nav.Section>
             </RewindSidebar.Nav>
 
@@ -92,9 +85,6 @@ const Sidebar: FC<SidebarProps> = ({ color, setExpanded, setMobile, setColor }) 
                 </div>
             </RewindSidebar.Footer>
         </RewindSidebar>
-
-
-
     )
 }
 

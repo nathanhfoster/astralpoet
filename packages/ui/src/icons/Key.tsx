@@ -1,4 +1,4 @@
-export const Key = () => (
+  const Key = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     height="1.2rem"
@@ -13,3 +13,5 @@ export const Key = () => (
     />
   </svg>
 );
+
+export default Key

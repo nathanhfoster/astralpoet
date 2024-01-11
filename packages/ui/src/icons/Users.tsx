@@ -1,4 +1,4 @@
-export const Users = () => (
+const Users = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     height="1.2rem"
@@ -13,3 +13,5 @@ export const Users = () => (
     />
   </svg>
 );
+
+export default Users

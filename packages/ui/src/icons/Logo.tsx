@@ -1,4 +1,4 @@
-export const Logo = () => (
+const Logo = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     height="1.75rem"
@@ -26,3 +26,5 @@ export const Logo = () => (
     <polygon fill="#334155" points="72.1,23.9 46.2,69.6 53.4,30.5" />
   </svg>
 );
+
+export default Logo

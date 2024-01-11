@@ -1,4 +1,4 @@
-export const Book = () => (
+  const Book = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     height="1.2rem"
@@ -16,3 +16,6 @@ export const Book = () => (
     />
   </svg>
 );
+
+
+export default Book

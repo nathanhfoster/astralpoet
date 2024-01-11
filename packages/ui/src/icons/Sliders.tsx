@@ -1,4 +1,4 @@
-export const Sliders = () => (
+const Sliders = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     height="1.2rem"
@@ -13,3 +13,5 @@ export const Sliders = () => (
     />
   </svg>
 );
+
+export default Sliders

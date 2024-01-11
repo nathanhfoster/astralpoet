@@ -26,7 +26,7 @@
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./*"],
-			"@packages/ui/*": ["./packages/ui/*"],
+			"@packages/ui/*": ["./packages/ui/src/*"],
 			"@packages/utils/*": ["./packages/utils/*"]
 		},
 		"incremental": true
