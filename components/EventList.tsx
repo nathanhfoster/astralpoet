@@ -1,12 +1,9 @@
 import React, { FC } from 'react'
 
-interface EventListProps {
-
-}
+interface EventListProps {}
 
 const EventList: FC<EventListProps> = () => {
-
-    return <>EventList</>
+	return <>EventList</>
 }
 
 export default EventList

@@ -1,4 +1,4 @@
-import { ComponentPropsType } from "../connect/types";
+import { ComponentPropsType } from '../connect/types'
 
 /**
  * This function returns the combined props from a context store(s) state, dispatch, and HOC
@@ -8,13 +8,13 @@ import { ComponentPropsType } from "../connect/types";
  * @returns {ComponentProps} - The merged props
  */
 const defaultMergeProps = (
-  stateToProps: ComponentPropsType,
-  dispatchToProps: ComponentPropsType,
-  ownProps: ComponentPropsType
+	stateToProps: ComponentPropsType,
+	dispatchToProps: ComponentPropsType,
+	ownProps: ComponentPropsType,
 ): any => ({
-  ...ownProps,
-  ...stateToProps,
-  ...dispatchToProps,
-});
+	...ownProps,
+	...stateToProps,
+	...dispatchToProps,
+})
 
-export default defaultMergeProps;
+export default defaultMergeProps

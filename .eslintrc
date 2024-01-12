@@ -1,11 +1,116 @@
 {
+	"parser": "@typescript-eslint/parser",
 	"extends": [
-		"next",
-		"next/core-web-vitals",
 		"eslint:recommended",
-		"plugin:react/recommended",
-		"plugin:react-hooks/recommended",
-		"plugin:@typescript-eslint/eslint-recommended",
-		"plugin:@typescript-eslint/recommended"
-	]
+		"next",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:@typescript-eslint/recommended-requiring-type-checking",
+		"plugin:prettier/recommended"
+	],
+	"plugins": ["simple-import-sort", "unused-imports", "@typescript-eslint"],
+	"rules": {
+		"prettier/prettier": [
+			"error",
+			{
+				"endOfLine": "auto"
+			}
+		],
+		// next.js
+		"@next/next/no-html-link-for-pages": "off",
+		"react/jsx-key": [
+			"error",
+			{
+				"checkFragmentShorthand": true
+			}
+		],
+		// simple-import-sort
+		"simple-import-sort/imports": [
+			"error",
+			{
+				"groups": [
+					[
+						"^node:",
+						"^react", // Packages. `react` related packages come first
+						"^@?\\w", // Packages. `react` related packages come first
+						"^(@|@company|@ui|ui|components|utils|config|vendored-lib)(/.*|$)", // Internal packages
+						"^\\u0000", // Side effect imports
+						"^\\.\\.(?!/?$)", // Parent imports. Put `..` last.
+						"^\\.\\./?$", // Parent imports. Put `..` last.
+						"^\\./(?=.*/)(?!/?$)", // Parent imports
+						"^\\.(?!/?$)", // Parent imports
+						"^\\./?$" // Other relative import
+					],
+					["^.+\\.s?css$", "^.+\\.style.ts$"] // Style imports.
+				]
+			}
+		],
+		"simple-import-sort/exports": "error",
+		"import/first": "error",
+		"import/newline-after-import": "error",
+		"import/no-duplicates": "error",
+		// for "unused-imports" plugin
+		"no-unused-vars": "off",
+		"@typescript-eslint/no-unused-vars": "off",
+		"unused-imports/no-unused-imports": "error",
+		"unused-imports/no-unused-vars": [
+			"warn",
+			{
+				"vars": "all",
+				"varsIgnorePattern": "^_",
+				"args": "after-used",
+				"argsIgnorePattern": "^_"
+			}
+		],
+		// custom
+		"react/jsx-fragments": ["error", "syntax"],
+		"react/jsx-no-useless-fragment": "error",
+		"react/jsx-boolean-value": "error",
+		"react/jsx-curly-brace-presence": [
+			"error",
+			{
+				"props": "never",
+				"children": "never"
+			}
+		],
+		"prefer-const": "error",
+		"padding-line-between-statements": [
+			"error",
+			{
+				"blankLine": "always",
+				"prev": ["const", "let", "var"],
+				"next": "*"
+			},
+			{
+				"blankLine": "any",
+				"prev": ["const", "let", "var"],
+				"next": ["const", "let", "var"]
+			},
+			{
+				"blankLine": "always",
+				"prev": "*",
+				"next": "return"
+			}
+		],
+		//@typescript-eslint
+		// to strict for us
+		"@typescript-eslint/no-empty-interface": "off",
+		"@typescript-eslint/ban-types": "off",
+		"@typescript-eslint/no-non-null-assertion": "off",
+		"@typescript-eslint/unbound-method": "off",
+		"@typescript-eslint/restrict-template-expressions": "off",
+		"@typescript-eslint/no-floating-promises": "off",
+		"@typescript-eslint/no-unsafe-call": "off",
+		"@typescript-eslint/require-await": "off",
+		// too many errors
+		"@typescript-eslint/no-unsafe-member-access": "off",
+		"@typescript-eslint/no-unsafe-argument": "off",
+		"@typescript-eslint/no-unsafe-return": "off",
+		"@typescript-eslint/no-unsafe-assignment": "off",
+		"@typescript-eslint/no-explicit-any": "off",
+		"@typescript-eslint/ban-ts-comment": "off",
+		"@typescript-eslint/restrict-plus-operands": "off"
+	},
+	"parserOptions": {
+		"project": "./tsconfig.json"
+	}
 }

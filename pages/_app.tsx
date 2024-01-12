@@ -1,13 +1,15 @@
 import React from 'react'
 import type { AppContext, AppInitialProps, AppProps } from 'next/app'
-import { ThemeProvider } from 'next-themes'
-import '@/styles/globals.css'
-import { Entry } from '@/contexts/EntriesContext/types'
 import App from 'next/app'
+import { ThemeProvider } from 'next-themes'
 import { EntriesContextProvider } from '@/contexts/EntriesContext'
+import { Entry } from '@/contexts/EntriesContext/types'
 
+import '@/styles/globals.css'
 
-interface MainAppProps extends AppProps { entries: Entry[] }
+interface MainAppProps extends AppProps {
+	entries: Entry[]
+}
 
 const MainApp = ({ Component, pageProps, entries }: MainAppProps) => {
 	return (
@@ -23,23 +25,26 @@ const MainApp = ({ Component, pageProps, entries }: MainAppProps) => {
 	)
 }
 
-MainApp.displayName = "Astral Poet";
+MainApp.displayName = 'Astral Poet'
 
 MainApp.getInitialProps = async (
-	appContext: AppContext
-): Promise<AppInitialProps<AppProps> > => {
-	const appProps = await App.getInitialProps(appContext);
-	const entries: Entry[] = [];
+	appContext: AppContext,
+): Promise<AppInitialProps<AppProps>> => {
+	const appProps = await App.getInitialProps(appContext)
+	const entries: Entry[] = [
+		{ id: 7777, name: 'Test' },
+		{ id: 77, name: 'Test' },
+		{ id: 77, name: 'Test' },
+	]
 
 	return {
 		...appProps,
 		//@ts-ignore
-		pageProps:( {
+		pageProps: {
 			...((appProps.pageProps ?? {}) as {}),
-		} ) ,
-		entries
-	};
-};
-
+		},
+		entries,
+	}
+}
 
 export default MainApp

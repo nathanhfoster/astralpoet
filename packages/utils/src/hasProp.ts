@@ -1,3 +1,3 @@
-const hasProp = Object.prototype.hasOwnProperty;
+const hasProp = Object.prototype.hasOwnProperty
 
-export default hasProp;
+export default hasProp

@@ -1,3 +1,3 @@
-import nextPluginPrevalConfig from "next-plugin-preval/config.js";
+import nextPluginPrevalConfig from 'next-plugin-preval/config.js'
 
-export default nextPluginPrevalConfig;
+export default nextPluginPrevalConfig

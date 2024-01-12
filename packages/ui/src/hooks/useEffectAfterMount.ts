@@ -1,23 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react'
 
 const useEffectAfterMount = (
-  effect: React.EffectCallback,
-  deps?: React.DependencyList | undefined
+	effect: React.EffectCallback,
+	deps?: React.DependencyList | undefined,
 ) => {
-  const isMounted = useRef(false);
+	const isMounted = useRef(false)
 
-  useEffect(() => {
-    let cleanup: void | (() => void) = undefined;
+	useEffect(() => {
+		let cleanup: void | (() => void) = undefined
 
-    if (isMounted.current) {
-      cleanup = effect();
-    }
+		if (isMounted.current) {
+			cleanup = effect()
+		}
 
-    isMounted.current = true;
+		isMounted.current = true
 
-    return cleanup;
-  }, deps);
-};
+		return cleanup
+	}, deps)
+}
 
-export default useEffectAfterMount;
+export default useEffectAfterMount

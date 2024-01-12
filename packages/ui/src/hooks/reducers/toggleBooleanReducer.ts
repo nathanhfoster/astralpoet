@@ -1,6 +1,6 @@
-import type { Reducer } from "react";
-import { isBoolean } from "@packages/utils/src";
-import type { useBooleanTogglerActionType } from "../useBooleanToggler/types";
+import type { Reducer } from 'react'
+import { isBoolean } from '@packages/utils/src'
+import type { useBooleanTogglerActionType } from '../useBooleanToggler/types'
 /**
  * Toggles the boolean state if there is not an action passed in
  * else it sets the state to the action's passed value
@@ -9,16 +9,16 @@ import type { useBooleanTogglerActionType } from "../useBooleanToggler/types";
  * @returns {boolean} - The nextState of the reducer
  */
 const toggleBooleanReducer: Reducer<boolean, useBooleanTogglerActionType> = (
-  state,
-  action
+	state,
+	action,
 ) => {
-  // If the type of the action is a boolean set the state to the action
-  if (isBoolean(action)) {
-    return action;
-  }
+	// If the type of the action is a boolean set the state to the action
+	if (isBoolean(action)) {
+		return action
+	}
 
-  // Otherwise toggle the state
-  return !state;
-};
+	// Otherwise toggle the state
+	return !state
+}
 
-export default toggleBooleanReducer;
+export default toggleBooleanReducer

@@ -1,6 +1,6 @@
-import { useReducer } from "react";
-import toggleBooleanReducer from "../reducers/toggleBooleanReducer";
-import { useBooleanTogglerType } from "./types";
+import { useReducer } from 'react'
+import toggleBooleanReducer from '../reducers/toggleBooleanReducer'
+import { useBooleanTogglerType } from './types'
 
 /**
  * Boolean reducer that toggles it's state by default or is overwritten by a passed value
@@ -10,6 +10,6 @@ import { useBooleanTogglerType } from "./types";
  */
 
 const useBooleanToggler: useBooleanTogglerType = (initializerArg = false) =>
-  useReducer(toggleBooleanReducer, Boolean(initializerArg));
+	useReducer(toggleBooleanReducer, Boolean(initializerArg))
 
-export default useBooleanToggler;
+export default useBooleanToggler

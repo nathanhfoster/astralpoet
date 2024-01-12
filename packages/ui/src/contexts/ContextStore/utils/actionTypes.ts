@@ -1,10 +1,10 @@
-import getRandomString from "./getRandomString";
+import getRandomString from './getRandomString'
 
 export type ContextActionTypes = {
-  INIT: string;
-  REPLACE: string;
-  PROBE_UNKNOWN_ACTION: () => string;
-};
+	INIT: string
+	REPLACE: string
+	PROBE_UNKNOWN_ACTION: () => string
+}
 /**
  * These are private action types reserved by Redux.
  * For any unknown actions, you must return the current state.
@@ -13,10 +13,10 @@ export type ContextActionTypes = {
  */
 
 const ActionTypes: ContextActionTypes = {
-  INIT: `@@redux/INIT${getRandomString()}`,
-  REPLACE: `@@redux/REPLACE${getRandomString()}`,
-  PROBE_UNKNOWN_ACTION: () =>
-    `@@redux/PROBE_UNKNOWN_ACTION${getRandomString()}`,
-};
+	INIT: `@@redux/INIT${getRandomString()}`,
+	REPLACE: `@@redux/REPLACE${getRandomString()}`,
+	PROBE_UNKNOWN_ACTION: () =>
+		`@@redux/PROBE_UNKNOWN_ACTION${getRandomString()}`,
+}
 
-export default ActionTypes;
+export default ActionTypes

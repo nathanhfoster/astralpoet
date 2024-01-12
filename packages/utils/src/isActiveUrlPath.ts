@@ -1,5 +1,5 @@
 const isActiveUrlPath = (href: string, routerPath: string) => {
-  return routerPath.includes(href);
-};
+	return routerPath.includes(href)
+}
 
-export default isActiveUrlPath;
+export default isActiveUrlPath

@@ -1,4 +1,4 @@
 const isAsyncFunction = (fn: any): fn is Function =>
-  fn.constructor.name === "AsyncFunction";
+	fn.constructor.name === 'AsyncFunction'
 
-export default isAsyncFunction;
+export default isAsyncFunction

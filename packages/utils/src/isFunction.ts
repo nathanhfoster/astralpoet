@@ -1,3 +1,3 @@
-const isFunction = (value: any): value is Function => value instanceof Function;
+const isFunction = (value: any): value is Function => value instanceof Function
 
-export default isFunction;
+export default isFunction

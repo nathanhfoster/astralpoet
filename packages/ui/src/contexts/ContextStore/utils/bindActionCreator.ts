@@ -1,4 +1,4 @@
-import { Dispatch } from "react";
+import { Dispatch } from 'react'
 
 /**
  * Turns an object whose values are action creators, into an object with the
@@ -23,10 +23,10 @@ import { Dispatch } from "react";
  * function.
  */
 const bindActionCreator =
-  (dispatch: Dispatch<any>) =>
-  (actionCreator: () => any) =>
-  (...args: any) =>
-    // eslint-disable-next-line prefer-spread
-    dispatch(actionCreator?.apply?.(undefined, args) || actionCreator);
+	(dispatch: Dispatch<any>) =>
+	(actionCreator: () => any) =>
+	(...args: any) =>
+		// eslint-disable-next-line prefer-spread
+		dispatch(actionCreator?.apply?.(undefined, args) || actionCreator)
 
-export default bindActionCreator;
+export default bindActionCreator

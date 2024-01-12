@@ -1,3 +1,3 @@
-const isClientSide = () => typeof window !== "undefined";
+const isClientSide = () => typeof window !== 'undefined'
 
-export default isClientSide;
+export default isClientSide

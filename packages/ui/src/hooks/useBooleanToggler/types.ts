@@ -1,6 +1,6 @@
-export type useBooleanTogglerStateType = boolean;
-export type useBooleanTogglerActionType = any;
-export type useBooleanTogglerDispatchType = (value?: any) => void;
+export type useBooleanTogglerStateType = boolean
+export type useBooleanTogglerActionType = any
+export type useBooleanTogglerDispatchType = (value?: any) => void
 export type useBooleanTogglerType = (
-  initializerArg?: useBooleanTogglerStateType
-) => [useBooleanTogglerStateType, useBooleanTogglerDispatchType];
+	initializerArg?: useBooleanTogglerStateType,
+) => [useBooleanTogglerStateType, useBooleanTogglerDispatchType]

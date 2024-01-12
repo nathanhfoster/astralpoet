@@ -4,6 +4,6 @@
  * @returns {Boolean} - whether the value is a comparable object or not
  */
 const isObjectLike = (value: any): boolean =>
-  typeof value === "object" && value !== null;
+	typeof value === 'object' && value !== null
 
-export default isObjectLike;
+export default isObjectLike

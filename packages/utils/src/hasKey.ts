@@ -1,5 +1,5 @@
 const hasKey = <T extends object>(obj: T, key: PropertyKey): key is keyof T => {
-  return key in obj;
-};
+	return key in obj
+}
 
-export default hasKey;
+export default hasKey

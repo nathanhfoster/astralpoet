@@ -26,6 +26,7 @@
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./*"],
+			"@contexts/*": ["./packages/contexts/*"],
 			"@packages/ui/*": ["./packages/ui/src/*"],
 			"@packages/utils/*": ["./packages/utils/*"]
 		},
@@ -33,16 +34,11 @@
 	},
 	"include": [
 		"next-env.d.ts",
+		"**/*.js",
 		"**/*.ts",
 		"**/*.tsx",
 		"cypress.config.js",
 		".next/types/**/*.ts"
-	  ],
-	  "exclude": [
-		"node_modules",
-		".next",
-		".nyc_output",
-		".turbo",
-		"coverage"
-	  ]
+	],
+	"exclude": ["node_modules", ".next", ".nyc_output", ".turbo", "coverage"]
 }

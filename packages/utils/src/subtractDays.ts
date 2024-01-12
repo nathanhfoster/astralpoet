@@ -1,10 +1,10 @@
-import { subDays } from "date-fns";
+import { subDays } from 'date-fns'
 
 const subDaysFn = (
-  dateValue: string | number | Date,
-  decrement: number
+	dateValue: string | number | Date,
+	decrement: number,
 ): Date => {
-  return subDays(new Date(dateValue), decrement);
-};
+	return subDays(new Date(dateValue), decrement)
+}
 
-export default subDaysFn;
+export default subDaysFn

@@ -1,3 +1,3 @@
-const isBoolean = (value: any): value is boolean => typeof value === "boolean";
+const isBoolean = (value: any): value is boolean => typeof value === 'boolean'
 
-export default isBoolean;
+export default isBoolean

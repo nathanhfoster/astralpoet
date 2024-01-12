@@ -1,28 +1,26 @@
 import {
-  DependencyList,
-  EffectCallback,
-  useEffect,
-  useLayoutEffect,
-} from "react";
-import { isClientSide } from "@packages/utils/src";
-import useIsMounted from "./useIsMounted";
+	DependencyList,
+	EffectCallback,
+	useEffect,
+	useLayoutEffect,
+} from 'react'
+import { isClientSide } from '@packages/utils/src'
+import useIsMounted from './useIsMounted'
 
 const useLayoutEffectAfterMount = (
-  callback: EffectCallback,
-  dependencies: DependencyList
+	callback: EffectCallback,
+	dependencies: DependencyList,
 ) => {
-  const mounted = useIsMounted();
-  const useIsomorphicLayoutEffect = isClientSide()
-    ? useLayoutEffect
-    : useEffect;
+	const mounted = useIsMounted()
+	const useIsomorphicLayoutEffect = isClientSide() ? useLayoutEffect : useEffect
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useIsomorphicLayoutEffect(
-    () => (mounted ? callback() : undefined),
-    dependencies
-  );
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	useIsomorphicLayoutEffect(
+		() => (mounted ? callback() : undefined),
+		dependencies,
+	)
 
-  return mounted;
-};
+	return mounted
+}
 
-export default useLayoutEffectAfterMount;
+export default useLayoutEffectAfterMount
