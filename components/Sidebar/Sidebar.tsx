@@ -1,6 +1,7 @@
 import React, { FC, memo, useCallback, useMemo } from 'react'
 import { Sidebar as RewindSidebar, SidebarState } from '@rewind-ui/core'
 import { capitalize } from 'lodash-es'
+import getConfig from 'next/config'
 import Image from 'next/image'
 import {
 	IconBook,
@@ -16,12 +17,16 @@ import {
 import { SIDEBAR_COLORS } from './constants'
 import { SidebarProps } from './types'
 
+const config = getConfig()
+
 const Sidebar: FC<SidebarProps> = ({
 	color,
 	setExpanded,
 	setMobile,
 	setColor,
 }) => {
+	const appVersion = config?.publicRuntimeConfig?.version
+
 	return (
 		<RewindSidebar
 			// className="md:min-w-[4.5rem]"
@@ -149,7 +154,7 @@ const Sidebar: FC<SidebarProps> = ({
 			<RewindSidebar.Footer>
 				<div className='flex flex-col justify-center items-center text-sm'>
 					<span className='font-semibold'>Astral Poet</span>
-					<span>version x.y.z</span>
+					<span>version {appVersion}</span>
 				</div>
 			</RewindSidebar.Footer>
 		</RewindSidebar>

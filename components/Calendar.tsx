@@ -1,8 +1,12 @@
 import React, { FC } from 'react'
-import { Calendar as RewindCalendar } from '@rewind-ui/core'
+import {
+	Calendar as RewindCalendar,
+	CalendarProps as RewindCalendarProps,
+} from '@rewind-ui/core'
 
-interface CalendarProps {}
-const Calendar: FC<CalendarProps> = () => {
+export interface CalendarProps extends RewindCalendarProps {}
+
+const Calendar: FC<CalendarProps> = ({ onChange }) => {
 	return (
 		<RewindCalendar
 			bordered={false}
@@ -16,6 +20,7 @@ const Calendar: FC<CalendarProps> = () => {
 			shadow='xl'
 			size='xl'
 			verticalBorders={false}
+			onChange={onChange}
 		></RewindCalendar>
 	)
 }

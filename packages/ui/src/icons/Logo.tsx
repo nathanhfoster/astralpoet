@@ -1,11 +1,7 @@
+import BaseSvg from './BaseSvg'
+
 const Logo = () => (
-	<svg
-		xmlns='http://www.w3.org/2000/svg'
-		height='1.75rem'
-		width='1.75rem'
-		viewBox='0 0 80.5 80.5'
-		fill='currentColor'
-	>
+	<BaseSvg viewBox='0 0 80.5 80.5'>
 		<path
 			fill='#ef4444'
 			d='M67.4,21.8l5.6-1.9l1.1-5.8c0,0,0,0,0,0l1.5-7.7c0.6-3.2-1.4-4.9-4.4-3.9L26.1,18.1c0,0,0,0,0,0L20.5,20
@@ -24,7 +20,7 @@ const Logo = () => (
 		<polygon fill='#dc2626' points='73,19.8 20.5,20 35.5,33' />
 		<polygon fill='#dc2626' points='16.7,21.4 43.1,66.8 46.9,47.3' />
 		<polygon fill='#334155' points='72.1,23.9 46.2,69.6 53.4,30.5' />
-	</svg>
+	</BaseSvg>
 )
 
 export default Logo

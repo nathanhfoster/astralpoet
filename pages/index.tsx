@@ -1,16 +1,30 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Button, Overlay, SidebarColor, useSidebar } from '@rewind-ui/core'
+import { useRouter } from 'next/router'
 import Calendar from '@/components/Calendar'
-import EventList from '@/components/EventList'
+import EntryList from '@/components/EntryList'
 import Section from '@/components/section'
 import { SIDEBAR_COLORS } from '@/components/Sidebar/constants'
 import Sidebar from '@/components/Sidebar/Sidebar'
 
 const Index = () => {
+	const router = useRouter()
 	const [expanded, setExpanded] = useState(true)
 	const [mobile, setMobile] = useState(false)
 	const sidebar = useSidebar()
-	const [color, setColor] = useState<SidebarColor>(SIDEBAR_COLORS[2])
+	const [color, setColor] = useState<SidebarColor>(SIDEBAR_COLORS[1])
+
+	const handleCalendarChange = useCallback(
+		(date: Date | null | undefined) => {
+			if (date) {
+				router.push({
+					pathname: '/entry/new',
+					query: { date: date.toLocaleDateString('en-CA') },
+				})
+			}
+		},
+		[router],
+	)
 
 	return (
 		<div className='relative antialiased flex flex-row bg-slate-100'>
@@ -65,10 +79,10 @@ const Index = () => {
 					<Section>
 						<div className='grid grid-cols-12 gap-4'>
 							<div className='md:col-span-8 col-span-12'>
-								<Calendar />
+								<Calendar onChange={handleCalendarChange} />
 							</div>
 							<div className='md:col-span-4 col-span-12'>
-								<EventList />
+								<EntryList />
 							</div>
 						</div>
 					</Section>
