@@ -1,25 +1,33 @@
-import React from 'react'
-import type { AppContext, AppInitialProps, AppProps } from 'next/app'
+import React, { Fragment } from 'react'
+import type { AppContext, AppInitialProps } from 'next/app'
 import App from 'next/app'
 import { ThemeProvider } from 'next-themes'
 import { EntriesContextProvider } from '@/contexts/EntriesContext'
 import { Entry } from '@/contexts/EntriesContext/types'
+import { AppPropsWithLayout } from '@/types'
 
 import '@/styles/globals.css'
 
-interface MainAppProps extends AppProps {
+interface MainAppProps {
 	entries: Entry[]
 }
 
-const MainApp = ({ Component, pageProps, entries }: MainAppProps) => {
+const MainApp = ({
+	Component,
+	pageProps,
+}: AppPropsWithLayout<MainAppProps>) => {
+	const Layout = Component.Layout ?? Fragment
+
 	return (
 		<ThemeProvider
 			attribute='class'
 			defaultTheme='system'
 			disableTransitionOnChange
 		>
-			<EntriesContextProvider initialState={entries}>
-				<Component {...pageProps} />
+			<EntriesContextProvider initialState={pageProps.entries}>
+				<Layout>
+					<Component {...pageProps} />
+				</Layout>
 			</EntriesContextProvider>
 		</ThemeProvider>
 	)
@@ -29,7 +37,7 @@ MainApp.displayName = 'Astral Poet'
 
 MainApp.getInitialProps = async (
 	appContext: AppContext,
-): Promise<AppInitialProps<AppProps>> => {
+): Promise<AppInitialProps<MainAppProps>> => {
 	const appProps = await App.getInitialProps(appContext)
 	const entries: Entry[] = [
 		{ id: 7777, name: 'Test' },
@@ -39,11 +47,7 @@ MainApp.getInitialProps = async (
 
 	return {
 		...appProps,
-		//@ts-ignore
-		pageProps: {
-			...((appProps.pageProps ?? {}) as {}),
-		},
-		entries,
+		pageProps: { entries, ...((appProps.pageProps ?? {}) as {}) },
 	}
 }
 
