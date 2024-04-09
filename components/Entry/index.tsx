@@ -27,7 +27,7 @@ const Entry: FC<EntryConnectedProps> = ({
 	id,
 	setEntryValue,
 	title,
-	date_created,
+	date_updated,
 	html,
 }) => {
 	const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +49,7 @@ const Entry: FC<EntryConnectedProps> = ({
 					className='cursor-default text-inherit'
 					type='date'
 					placeholder='My first diary entry'
-					value={new Date(date_created).toLocaleDateString('en-CA')}
+					value={new Date(date_updated).toLocaleDateString('en-CA')}
 					leftIcon={<IconCalendar />}
 					tone='transparent'
 					onChange={handleDateChange}
