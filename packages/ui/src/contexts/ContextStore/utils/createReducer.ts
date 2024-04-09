@@ -42,17 +42,19 @@ const createReducer = <
 		return state
 	}
 
-	const addThunks = <TA extends object>(
-		thunksExternalActions: (thunksAction: ReducerActionCreators<A, N>) => {
-			[Type in keyof TA]: ThunkFunction<
-				TA[Type],
+	const addThunks = <
+		TA extends {
+			[key: string]: ThunkFunction<
+				any,
 				S,
 				ActionsUnionType<typeof actions> | Thunk<any, S>
 			>
 		},
+	>(
+		thunks: (thunksAction: ReducerActionCreators<A, N>) => TA,
 	) => {
 		return {
-			actions: { ...actions, ...thunksExternalActions(actions) },
+			actions: { ...actions, ...thunks(actions) },
 			reducer,
 		}
 	}

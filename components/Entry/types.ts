@@ -5,6 +5,7 @@ export interface EntryMapStateToProps extends Entry {}
 
 export interface EntryMapDispatchToProps {
 	setEntryValue: typeof EntriesActions.setEntryValue
+	saveEntriesToDb: typeof EntriesActions.saveEntriesToDb
 }
 export interface EntryOwnProps {
 	entryId: Entry['id'] | string

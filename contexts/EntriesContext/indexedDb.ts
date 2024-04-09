@@ -4,7 +4,7 @@ import { Entry } from './types'
 
 export const getEntriesDb = async (
 	entries: Entry[],
-	setState: (entries: Entry[]) => any,
+	setState?: (entries: Entry[]) => any,
 ) => {
 	const request = window.indexedDB.open(
 		INDEX_DB_KEY,
@@ -44,7 +44,7 @@ export const getEntriesDb = async (
 			//@ts-ignore
 			const entries: Entry[] = event.target?.result
 
-			setState(entries)
+			setState?.(entries)
 		}
 	}
 

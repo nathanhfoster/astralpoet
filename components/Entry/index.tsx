@@ -7,13 +7,21 @@ import {
 	EntriesDispatchContext,
 	EntriesStateContext,
 } from '@/contexts/EntriesContext'
-import { EntriesContextState, Entry } from '@/contexts/EntriesContext/types'
-import { connect } from '@/packages/ui'
+import {
+	EntriesContextState,
+	Entry as EntryType,
+} from '@/contexts/EntriesContext/types'
+import {
+	connect,
+	useDebouncedCallback,
+	useEffectAfterMount,
+} from '@/packages/ui'
 import {
 	IconCalendar,
 	IconEllipsis,
 	IconHeading,
 } from '@/packages/ui/src/icons'
+import { getValidDate } from '@/packages/utils/src'
 import {
 	EntryConnectedProps,
 	EntryMapDispatchToProps,
@@ -24,12 +32,23 @@ import {
 const Editor = dynamic(() => import('@/components/Editor'), { ssr: false })
 
 const Entry: FC<EntryConnectedProps> = ({
-	id,
 	setEntryValue,
+	saveEntriesToDb,
+	id,
 	title,
-	date_updated,
+	date_created,
 	html,
 }) => {
+	const debounceSaveEntriesToDb = useDebouncedCallback(
+		saveEntriesToDb,
+		[],
+		1000,
+	)
+
+	useEffectAfterMount(() => {
+		debounceSaveEntriesToDb()
+	}, [title, date_created, html])
+
 	const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setEntryValue({ id, key: 'date_created', value: event.target.value })
 	}
@@ -49,7 +68,7 @@ const Entry: FC<EntryConnectedProps> = ({
 					className='cursor-default text-inherit'
 					type='date'
 					placeholder='My first diary entry'
-					value={new Date(date_updated).toLocaleDateString('en-CA')}
+					value={getValidDate(date_created)}
 					leftIcon={<IconCalendar />}
 					tone='transparent'
 					onChange={handleDateChange}
@@ -87,7 +106,7 @@ export default connect<
 			mapStateToProps: (entriesState: EntriesContextState, ownProps) => {
 				const entry = entriesState.entries.find(
 					(entry) => entry.id == ownProps.entryId,
-				) as Entry
+				) as EntryType
 
 				return entry
 			},
@@ -98,6 +117,7 @@ export default connect<
 			context: EntriesDispatchContext,
 			mapDispatchToProps: {
 				setEntryValue: EntriesActions.setEntryValue,
+				saveEntriesToDb: EntriesActions.saveEntriesToDb,
 			},
 		},
 	],

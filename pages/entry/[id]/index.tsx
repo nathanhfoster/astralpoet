@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext, NextPage } from 'next'
 import dynamic from 'next/dynamic'
-import { Entry } from '@/contexts/EntriesContext/types'
+import { Entry as EntryType } from '@/contexts/EntriesContext/types'
 
 const Entry = dynamic(() => import('@/components/Entry'), { ssr: false })
 
@@ -9,7 +9,7 @@ interface ViewEntryPageProps {
 }
 
 interface ViewEntryPageMapStateToProps {
-	entry: Entry
+	entry: EntryType
 }
 
 interface ViewEntryPageConnectedProps

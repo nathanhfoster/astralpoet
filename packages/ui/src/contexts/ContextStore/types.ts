@@ -7,7 +7,7 @@ import {
 	IsUnknownOrNonInferrable,
 } from './utils/tsHelpers'
 
-export type ContextStoreError = unknown
+export type ContextStoreError = string
 export type ContextProviderProps<S, A = any> = Pick<
 	ProviderProps<S, A>,
 	'initialState' | 'derivedStateFromProps' | 'children'
@@ -148,15 +148,41 @@ export type PayloadActionCreator<P = void, T extends string = string> = IsAny<
 	>
 >
 
-export type Thunk<D, S, P = void> = (
-	dispatch: Dispatch<D>,
+export type Thunk<A, S, P = void> = (
+	dispatch: Dispatch<A>,
 	getState: () => S,
 ) => PayloadActionCreator | Promise<P> | Promise<void> | P
+
 export type ThunkAction<
 	S extends Reducer<any, any>,
 	D extends Reducer<any, any> = any,
-> = ((...args: any[]) => PayloadAction) | Thunk<S, D>
+> = ((...args: any[]) => PayloadAction) | Thunk<any, S, D>
 
-export type ThunkFunction<Param, S = any, A = any> = (
+export type ThunkFunction<P = void, S = any, A = any> = IsAny<
+	P,
+	ThunkFunctionWithParam<any, S, A>,
+	IsUnknownOrNonInferrable<
+		P,
+		ThunkFunctionWithParam<unknown, S, A>,
+		// else
+		IfVoid<
+			P,
+			ThunkFunctionWithParam<P, S, A>,
+			// else
+			IfMaybeUndefined<
+				P,
+				ThunkFunctionWithOptionalPayload<P, S, A>,
+				// else
+				ThunkFunctionWithParam<P, S, A>
+			>
+		>
+	>
+>
+
+type ThunkFunctionWithParam<Param = void, S = any, A = any> = (
 	param: Param,
+) => Thunk<A, S>
+
+type ThunkFunctionWithOptionalPayload<Param = void, S = any, A = any> = (
+	param?: Param,
 ) => Thunk<A, S>

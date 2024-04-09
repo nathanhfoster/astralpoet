@@ -1,4 +1,5 @@
 import { ChangeEvent } from 'react'
+import { INDEX_DB_KEY, INDEX_DB_VERSION } from '@/packages/constants'
 import { ContextStoreInitializer } from '@/packages/ui/src/contexts/ContextStore/types'
 import createReducer from '@/packages/ui/src/contexts/ContextStore/utils/createReducer'
 import getDerivedStateFromProps from '@/packages/ui/src/contexts/ContextStore/utils/getDerivedStateFromProps'
@@ -107,6 +108,19 @@ export const entriesSlice = createReducer({
 				formattedEntries(getState().entries),
 				`Astral-Poet-Entries-${new Date()}`,
 			)
+		},
+
+		saveEntriesToDb: () => async (_dispatch, getState) => {
+			const db = indexedDB.open(INDEX_DB_KEY, INDEX_DB_VERSION)
+
+			db.onsuccess = async () => {
+				const transaction = db.result.transaction('entries', 'readwrite')
+				const store = transaction.objectStore('entries')
+
+				getState().entries.forEach((entry) => {
+					store.put(entry)
+				})
+			}
 		},
 	}
 })
