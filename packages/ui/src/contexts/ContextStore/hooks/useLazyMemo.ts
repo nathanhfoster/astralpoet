@@ -1,6 +1,6 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useRef } from 'react'
 
-const DEFAULT_VALUE = null;
+const DEFAULT_VALUE = null
 
 /**
  * This function is used to overcome this potential issue of the useMemo:
@@ -14,24 +14,24 @@ const DEFAULT_VALUE = null;
  * @returns {*} - a lazily loaded value
  */
 const useLazyMemo = (initializer: () => any) => {
-  const ref = useRef(DEFAULT_VALUE);
+	const ref = useRef(DEFAULT_VALUE)
 
-  const getObservable = useCallback(() => {
-    const observer = ref.current;
+	const getObservable = useCallback(() => {
+		const observer = ref.current
 
-    if (observer !== DEFAULT_VALUE) {
-      return observer;
-    }
+		if (observer !== DEFAULT_VALUE) {
+			return observer
+		}
 
-    const newObserver = initializer();
+		const newObserver = initializer()
 
-    ref.current = newObserver;
+		ref.current = newObserver
 
-    return newObserver;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+		return newObserver
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
-  return getObservable();
-};
+	return getObservable()
+}
 
-export default useLazyMemo;
+export default useLazyMemo

@@ -111,11 +111,8 @@ export const hasMatchFunction = <T>(
 export type Matcher<T> = HasMatchFunction<T> | TypeGuard<T>
 
 /** @public */
-export type ActionFromMatcher<M extends Matcher<any>> = M extends Matcher<
-	infer T
->
-	? T
-	: never
+export type ActionFromMatcher<M extends Matcher<any>> =
+	M extends Matcher<infer T> ? T : never
 
 export type Id<T> = { [K in keyof T]: T[K] } & {}
 

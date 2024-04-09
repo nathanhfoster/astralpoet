@@ -1,53 +1,38 @@
-import { FormControl, InputGroup } from '@rewind-ui/core'
 import type {
 	GetServerSideProps,
 	GetServerSidePropsContext,
 	NextPage,
 } from 'next'
-import { IconCalendar, IconEllipsis, IconHeading } from '@/packages/ui'
+import dynamic from 'next/dynamic'
+import {
+	EntriesActions,
+	EntriesDispatchContext,
+} from '@/contexts/EntriesContext'
+import { connect, useEffectOnce } from '@/packages/ui'
+
+const Entry = dynamic(() => import('@/components/Entry'), { ssr: false })
 
 interface NewEntryProps {
-	date: string
+	date_created: string
 }
 
-const NewEntry: NextPage<NewEntryProps> = ({ date }) => {
-	return (
-		<FormControl size='lg'>
-			<FormControl.InputGroup size='lg' tone='solid'>
-				<FormControl.Input
-					className='cursor-default'
-					type='date'
-					placeholder='My first diary entry'
-					disabled
-					value={date}
-					leftIcon={<IconCalendar />}
-				/>
-				<InputGroup.Button color='gray'>
-					<IconEllipsis />
-				</InputGroup.Button>
-			</FormControl.InputGroup>
-			<FormControl.InputGroup size='lg' tone='solid'>
-				<FormControl.Input
-					placeholder='My first diary entry'
-					leftIcon={<IconHeading />}
-				/>
-			</FormControl.InputGroup>
-			<FormControl.Textarea
-				className='h-dvh resize-none'
-				rows={8}
-				cols={50}
-				disabled={false}
-				shadow='sm'
-				radius='lg'
-				size='lg'
-				tone='solid'
-				validation='none'
-				withRing={false}
-				defaultValue="After I've installed Astral Poet today, I will make a diary entry every day from now on. In case I forget to make an entry, the app will remind me with a notification in the evening. In addition to photos, videos, audio recordings or other files, I can also add a location, tags or people to my diary entries.✍ I can use it on all my devices and synchronize the journal with the sync button on the main page. I am already looking forward to revisiting all those memories in a few months or years. ✨"
-				placeholder=''
-			/>
-		</FormControl>
-	)
+interface NewEntryMapDispatchToProps {
+	setNewEntry: typeof EntriesActions.setNewEntry
+}
+
+interface NewEntryConnectedProps
+	extends NewEntryProps,
+		NewEntryMapDispatchToProps {}
+
+const NewEntry: NextPage<NewEntryConnectedProps> = ({
+	date_created,
+	setNewEntry,
+}) => {
+	useEffectOnce(() => {
+		setNewEntry({ date_created })
+	})
+
+	return <Entry entryId='new' />
 }
 
 export const getServerSideProps: GetServerSideProps = async (
@@ -55,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
 	const { date } = context.query
 	const props: NewEntryProps = {
-		date: (date as string) ?? new Date().toLocaleDateString('en-CA'),
+		date_created: (date as string) ?? new Date().toLocaleDateString('en-CA'),
 	}
 
 	return {
@@ -63,4 +48,13 @@ export const getServerSideProps: GetServerSideProps = async (
 	}
 }
 
-export default NewEntry
+export default connect<{}, NewEntryMapDispatchToProps>({
+	mapDispatchToPropsOptions: [
+		{
+			context: EntriesDispatchContext,
+			mapDispatchToProps: {
+				setNewEntry: EntriesActions.setNewEntry,
+			},
+		},
+	],
+})(NewEntry)

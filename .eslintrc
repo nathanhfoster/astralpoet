@@ -5,23 +5,23 @@
 		"next",
 		"plugin:@typescript-eslint/recommended",
 		"plugin:@typescript-eslint/recommended-requiring-type-checking",
-		"plugin:prettier/recommended"
+		"plugin:prettier/recommended",
 	],
 	"plugins": ["simple-import-sort", "unused-imports", "@typescript-eslint"],
 	"rules": {
 		"prettier/prettier": [
 			"error",
 			{
-				"endOfLine": "auto"
-			}
+				"endOfLine": "auto",
+			},
 		],
 		// next.js
 		"@next/next/no-html-link-for-pages": "off",
 		"react/jsx-key": [
 			"error",
 			{
-				"checkFragmentShorthand": true
-			}
+				"checkFragmentShorthand": true,
+			},
 		],
 		// simple-import-sort
 		"simple-import-sort/imports": [
@@ -38,11 +38,11 @@
 						"^\\.\\./?$", // Parent imports. Put `..` last.
 						"^\\./(?=.*/)(?!/?$)", // Parent imports
 						"^\\.(?!/?$)", // Parent imports
-						"^\\./?$" // Other relative import
+						"^\\./?$", // Other relative import
 					],
-					["^.+\\.s?css$", "^.+\\.style.ts$"] // Style imports.
-				]
-			}
+					["^.+\\.s?css$", "^.+\\.style.ts$"], // Style imports.
+				],
+			},
 		],
 		"simple-import-sort/exports": "error",
 		"import/first": "error",
@@ -58,8 +58,8 @@
 				"vars": "all",
 				"varsIgnorePattern": "^_",
 				"args": "after-used",
-				"argsIgnorePattern": "^_"
-			}
+				"argsIgnorePattern": "^_",
+			},
 		],
 		// custom
 		"react/jsx-fragments": ["error", "syntax"],
@@ -69,8 +69,8 @@
 			"error",
 			{
 				"props": "never",
-				"children": "never"
-			}
+				"children": "never",
+			},
 		],
 		"prefer-const": "error",
 		"padding-line-between-statements": [
@@ -78,18 +78,18 @@
 			{
 				"blankLine": "always",
 				"prev": ["const", "let", "var"],
-				"next": "*"
+				"next": "*",
 			},
 			{
 				"blankLine": "any",
 				"prev": ["const", "let", "var"],
-				"next": ["const", "let", "var"]
+				"next": ["const", "let", "var"],
 			},
 			{
 				"blankLine": "always",
 				"prev": "*",
-				"next": "return"
-			}
+				"next": "return",
+			},
 		],
 		//@typescript-eslint
 		// to strict for us
@@ -108,9 +108,9 @@
 		"@typescript-eslint/no-unsafe-assignment": "off",
 		"@typescript-eslint/no-explicit-any": "off",
 		"@typescript-eslint/ban-ts-comment": "off",
-		"@typescript-eslint/restrict-plus-operands": "off"
+		"@typescript-eslint/restrict-plus-operands": "off",
 	},
 	"parserOptions": {
-		"project": "./tsconfig.json"
-	}
+		"project": "./tsconfig.json",
+	},
 }

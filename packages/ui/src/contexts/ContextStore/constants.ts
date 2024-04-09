@@ -1,2 +1,1 @@
- 
-export const DEFAULT_DISPATCH_CONTEXT = () => {};
+export const DEFAULT_DISPATCH_CONTEXT = () => {}

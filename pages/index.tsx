@@ -4,8 +4,8 @@ import { useRouter } from 'next/router'
 import Calendar from '@/components/Calendar'
 import EntryList from '@/components/EntryList'
 import Section from '@/components/section'
+import Sidebar from '@/components/Sidebar'
 import { SIDEBAR_COLORS } from '@/components/Sidebar/constants'
-import Sidebar from '@/components/Sidebar/Sidebar'
 
 const Index = () => {
 	const router = useRouter()
@@ -79,6 +79,7 @@ const Index = () => {
 					<Section>
 						<div className='grid grid-cols-12 gap-4'>
 							<div className='md:col-span-8 col-span-12'>
+								{/*@ts-ignore*/}
 								<Calendar onChange={handleCalendarChange} />
 							</div>
 							<div className='md:col-span-4 col-span-12'>

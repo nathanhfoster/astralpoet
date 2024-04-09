@@ -9,7 +9,7 @@ module.exports = {
 		'./node_modules/@rewind-ui/core/dist/theme/styles/Button.styles.js',
 		'./node_modules/@rewind-ui/core/dist/theme/styles/Text.styles.js',
 	],
-	darkMode: 'class',
+	darkMode: 'media',
 	plugins: [
 		require('tailwindcss-safe-area'),
 		require('@tailwindcss/typography'),

@@ -39,11 +39,7 @@ MainApp.getInitialProps = async (
 	appContext: AppContext,
 ): Promise<AppInitialProps<MainAppProps>> => {
 	const appProps = await App.getInitialProps(appContext)
-	const entries: Entry[] = [
-		{ id: 7777, name: 'Test' },
-		{ id: 77, name: 'Test' },
-		{ id: 77, name: 'Test' },
-	]
+	const entries: Entry[] = []
 
 	return {
 		...appProps,

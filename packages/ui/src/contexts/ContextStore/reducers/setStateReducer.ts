@@ -1,4 +1,4 @@
-import { isFunction } from "@packages/utils/src";
+import { isFunction } from '@packages/utils/src'
 
 /**
  * A generic reducer that augments the useReducer hook
@@ -8,6 +8,6 @@ import { isFunction } from "@packages/utils/src";
  * @returns
  */
 const setStateReducer = <T extends Object>(state: T, action: any) =>
-  (isFunction(action) ? action(state) : action) as T;
+	(isFunction(action) ? action(state) : action) as T
 
-export default setStateReducer;
+export default setStateReducer

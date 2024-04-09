@@ -88,23 +88,24 @@ export interface ActionCreatorWithPreparedPayload<
 export type _ActionCreatorWithPreparedPayload<
 	PA extends PrepareAction<any> | void,
 	T extends string = string,
-> = PA extends PrepareAction<infer P>
-	? ActionCreatorWithPreparedPayload<
-			Parameters<PA>,
-			P,
-			T,
-			ReturnType<PA> extends {
-				error: infer E
-			}
-				? E
-				: never,
-			ReturnType<PA> extends {
-				meta: infer M
-			}
-				? M
-				: never
-		>
-	: void
+> =
+	PA extends PrepareAction<infer P>
+		? ActionCreatorWithPreparedPayload<
+				Parameters<PA>,
+				P,
+				T,
+				ReturnType<PA> extends {
+					error: infer E
+				}
+					? E
+					: never,
+				ReturnType<PA> extends {
+					meta: infer M
+				}
+					? M
+					: never
+			>
+		: void
 
 export interface ActionCreatorWithPayload<P, T extends string = string>
 	extends BaseActionCreator<P, T> {

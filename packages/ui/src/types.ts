@@ -67,14 +67,7 @@ export type SomeCallback<TArgs, TResult = void> = (...args: TArgs[]) => TResult
  */
 export type CallbackSetter<TArgs> = (nextCallback: SomeCallback<TArgs>) => void
 
-export type Falsely =
-	| null
-	| undefined
-	| false
-	| typeof NaN
-	| 0
-	| -0
-	| BigInt
-	| ''
+// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+export type Falsely = null | undefined | false | typeof NaN | 0 | BigInt | ''
 
 export type Truthy<T> = T extends Falsely ? never : T
