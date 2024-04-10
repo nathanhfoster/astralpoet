@@ -1,4 +1,4 @@
-import { getValidDate, isString, jsonParseDates } from '@/packages/utils/src'
+import { getValidDate, isString } from '@/packages/utils/src'
 import { Entry, ImportedEntry } from './types'
 
 export const getStringFromObject = (obj: Object, key = 'name') => {
@@ -47,16 +47,16 @@ export const entryTagOrPeopleTransform = (
 
 export const entryDateTransform = (date: string) => getValidDate(date)
 
-export const arrayOfObjectsTransform = (
-	EntryFiles: ImportedEntry['EntryFiles'],
-	shouldExport = true,
-) => {
-	if (shouldExport) {
-		return JSON.stringify(EntryFiles)
-	}
+// export const arrayOfObjectsTransform = (
+// 	EntryFiles: ImportedEntry['EntryFiles'],
+// 	shouldExport = true,
+// ) => {
+// 	if (shouldExport) {
+// 		return JSON.stringify(EntryFiles)
+// 	}
 
-	return JSON.parse(EntryFiles || '[]', jsonParseDates)
-}
+// 	return JSON.parse(EntryFiles || '[]', jsonParseDates)
+// }
 
 export const stringToIntegerTransform = (s: string, shouldExport = true) => {
 	if (shouldExport) {
@@ -129,9 +129,9 @@ export const entryKeyTransform = (entry: Entry | ImportedEntry) =>
 			case '_calendarDate':
 				entryTransform.transform = entryDateTransform
 				break
-			case 'EntryFiles':
-				entryTransform.transform = arrayOfObjectsTransform
-				break
+			// case 'EntryFiles':
+			// 	entryTransform.transform = arrayOfObjectsTransform
+			// break
 
 			default:
 				entryTransform.transform = (e: any) => e
