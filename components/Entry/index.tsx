@@ -1,27 +1,20 @@
 import { FC } from 'react'
 import FormControl from '@rewind-ui/core/dist/components/FormControl/FormControl'
-import InputGroup from '@rewind-ui/core/dist/components/InputGroup/InputGroup'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import {
 	EntriesActions,
 	EntriesDispatchContext,
-	EntriesStateContext,
 } from '@/contexts/EntriesContext'
-import {
-	EntriesContextState,
-	Entry as EntryType,
-} from '@/contexts/EntriesContext/types'
+import { saveEntryToDb } from '@/contexts/EntriesContext/indexedDb'
 import {
 	connect,
 	useDebouncedCallback,
 	useEffectAfterMount,
 } from '@/packages/ui'
-import {
-	IconCalendar,
-	IconEllipsis,
-	IconHeading,
-} from '@/packages/ui/src/icons'
+import { IconCalendar, IconHeading } from '@/packages/ui/src/icons'
 import { getValidDate } from '@/packages/utils/src'
+import Ellipsis from './components/Ellipsis'
 import {
 	EntryConnectedProps,
 	EntryMapDispatchToProps,
@@ -31,34 +24,39 @@ import {
 
 const Editor = dynamic(() => import('@/components/Editor'), { ssr: false })
 
-const Entry: FC<EntryConnectedProps> = ({
-	setEntryValue,
-	saveEntriesToDb,
-	id,
-	title,
-	date_created,
-	html,
-}) => {
-	const debounceSaveEntriesToDb = useDebouncedCallback(
-		saveEntriesToDb,
-		[],
-		1000,
-	)
+const Entry: FC<EntryConnectedProps> = ({ setEntryValue, entry }) => {
+	const router = useRouter()
+	const debounceSaveEntryToDb = useDebouncedCallback(saveEntryToDb, [], 1000)
 
 	useEffectAfterMount(() => {
-		debounceSaveEntriesToDb()
-	}, [title, date_created, html])
+		if (entry?.id) {
+			debounceSaveEntryToDb(entry)
+		}
+	}, [entry?.title, entry?.date_created, entry?.html])
 
+	if (!entry) {
+		router.push('/')
+
+		return null
+	}
 	const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setEntryValue({ id, key: 'date_created', value: event.target.value })
+		setEntryValue({
+			id: entry?.id,
+			key: 'date_created',
+			value: event.target.value,
+		})
 	}
 
 	const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setEntryValue({ id, key: 'title', value: event.target.value })
+		setEntryValue({
+			id: entry.id,
+			key: 'title',
+			value: event.target.value,
+		})
 	}
 
 	const handleEditorStateChange = (value: string) => {
-		setEntryValue({ id, key: 'html', value })
+		setEntryValue({ id: entry.id, key: 'html', value })
 	}
 
 	return (
@@ -67,29 +65,26 @@ const Entry: FC<EntryConnectedProps> = ({
 				<FormControl.Input
 					className='cursor-default text-inherit'
 					type='date'
-					placeholder='My first diary entry'
-					value={getValidDate(date_created)}
+					value={getValidDate(entry.date_created)}
 					leftIcon={<IconCalendar />}
 					tone='transparent'
 					onChange={handleDateChange}
 				/>
-				<InputGroup.Button tone='solid'>
-					<IconEllipsis />
-				</InputGroup.Button>
+				<Ellipsis entryId={entry.id} />
 			</FormControl.InputGroup>
 			<FormControl.InputGroup size='lg' tone='transparent'>
 				<FormControl.Input
 					className='text-inherit'
 					placeholder='My first diary entry'
 					leftIcon={<IconHeading />}
-					value={title}
+					value={entry.title}
 					onChange={handleTitleChange}
 				/>
 			</FormControl.InputGroup>
 			<Editor
 				className='h-dvh resize-none'
 				onChange={handleEditorStateChange}
-				value={html}
+				value={entry.html}
 			/>
 		</FormControl>
 	)
@@ -100,24 +95,11 @@ export default connect<
 	EntryMapDispatchToProps,
 	EntryOwnProps
 >({
-	mapStateToPropsOptions: [
-		{
-			context: EntriesStateContext,
-			mapStateToProps: (entriesState: EntriesContextState, ownProps) => {
-				const entry = entriesState.entries.find(
-					(entry) => entry.id == ownProps.entryId,
-				) as EntryType
-
-				return entry
-			},
-		},
-	],
 	mapDispatchToPropsOptions: [
 		{
 			context: EntriesDispatchContext,
 			mapDispatchToProps: {
 				setEntryValue: EntriesActions.setEntryValue,
-				saveEntriesToDb: EntriesActions.saveEntriesToDb,
 			},
 		},
 	],

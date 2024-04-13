@@ -3,6 +3,7 @@ import { Input, Sidebar as RewindSidebar, SidebarState } from '@rewind-ui/core'
 import { capitalize } from 'lodash-es'
 import getConfig from 'next/config'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import {
 	EntriesActions,
 	EntriesDispatchContext,
@@ -28,6 +29,7 @@ const Sidebar: FC<SidebarConnectedProps> = ({
 	exportEntries,
 }) => {
 	const appVersion = config?.publicRuntimeConfig?.version
+	const router = useRouter()
 
 	return (
 		<RewindSidebar
@@ -58,7 +60,7 @@ const Sidebar: FC<SidebarConnectedProps> = ({
 					<RewindSidebar.Nav.Section.Item
 						icon={<IconRocketLaunch />}
 						label='Dashboard'
-						href='#'
+						href='/'
 						active
 					>
 						<RewindSidebar.Nav.Section isChild>
@@ -76,6 +78,32 @@ const Sidebar: FC<SidebarConnectedProps> = ({
 									)),
 								[color, setColor],
 							)}
+						</RewindSidebar.Nav.Section>
+					</RewindSidebar.Nav.Section.Item>
+				</RewindSidebar.Nav.Section>
+
+				<RewindSidebar.Nav.Section>
+					<RewindSidebar.Nav.Section.Title>
+						Views
+					</RewindSidebar.Nav.Section.Title>
+					<RewindSidebar.Nav.Section.Item
+						icon={<IconEnvelopeOpen />}
+						label='Entries'
+						as='button'
+					>
+						<RewindSidebar.Nav.Section isChild>
+							<RewindSidebar.Nav.Section.Item
+								icon={<span className='w-1 h-1 rounded bg-transparent' />}
+								label='Calendar'
+								href='/entries/calendar'
+								active={router.pathname === '/entries/calendar'}
+							/>
+							<RewindSidebar.Nav.Section.Item
+								icon={<span className='w-1 h-1 rounded bg-transparent' />}
+								label='Table'
+								href='/entries/table'
+								active={router.pathname === '/entries/table'}
+							/>
 						</RewindSidebar.Nav.Section>
 					</RewindSidebar.Nav.Section.Item>
 				</RewindSidebar.Nav.Section>

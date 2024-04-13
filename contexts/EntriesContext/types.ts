@@ -30,6 +30,7 @@ export interface EntryFile extends EntityTimeStamp {
 }
 
 export interface Entry extends EntityTimeStamp {
+	// IndexedDB only
 	id: number
 	author: number
 	title: string
@@ -45,31 +46,20 @@ export interface Entry extends EntityTimeStamp {
 	EntryFiles: EntryFile[]
 	is_public: boolean
 	size: number
+	// FE only
 	_size: number
 	_shouldDelete: boolean
 	_shouldPost: boolean
 }
 
-export interface ImportedEntry
-	extends Omit<
-		Entry,
-		| 'id'
-		| 'views'
-		| 'rating'
-		| 'EntryFiles'
-		| 'is_public'
-		| 'size'
-		| '_size'
-		| '_shouldDelete'
-		| '_shouldPost'
-	> {
-	id: string
-	views: string
-	rating: string
-	EntryFiles: string
-	is_public: string
-	size: string
-	_size: string
-	_shouldDelete: string
-	_shouldPost: string
-}
+export const ENTRY_KEYS: (keyof Entry)[] = [
+	'title',
+	'html',
+	'tags',
+	'people',
+	'address',
+	'latitude',
+	'longitude',
+	'views',
+	'rating',
+]

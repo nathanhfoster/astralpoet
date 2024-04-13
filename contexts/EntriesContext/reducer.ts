@@ -1,16 +1,13 @@
 import { ChangeEvent } from 'react'
-import { INDEX_DB_KEY, INDEX_DB_VERSION } from '@/packages/constants'
 import { ContextStoreInitializer } from '@/packages/ui/src/contexts/ContextStore/types'
 import createReducer from '@/packages/ui/src/contexts/ContextStore/utils/createReducer'
-import getDerivedStateFromProps from '@/packages/ui/src/contexts/ContextStore/utils/getDerivedStateFromProps'
 import exportFile from '@/packages/utils/src/exportFile'
 import loadJSON from '@/packages/utils/src/loadJSON'
-import { getEntriesDb } from './indexedDb'
+import { getEntriesDb, saveEntriesToDb } from './indexedDb'
 import {
 	EntriesContextProviderProps,
 	EntriesContextState,
 	Entry,
-	ImportedEntry,
 } from './types'
 import { formattedEntries } from './utils'
 
@@ -50,12 +47,14 @@ export const entriesSlice = createReducer({
 		initializeEntries: (state, entries: Entry[]) => {
 			state.entries = entries
 		},
-
+		setEntry: (state, entry: Entry) => {
+			state.entries.unshift(entry)
+		},
 		setEntryValue: (
 			state,
 			payload: { id: Entry['id']; key: keyof Entry; value: Entry[keyof Entry] },
 		) => {
-			const entry = state.entries.find((entry) => entry.id == payload.id)
+			const entry = state.entries.find((entry) => entry.id === payload.id)
 
 			if (entry) {
 				//@ts-ignore
@@ -63,21 +62,11 @@ export const entriesSlice = createReducer({
 				entry['date_updated'] = new Date().toISOString()
 			}
 		},
-		setNewEntry: (state, entry: Partial<Entry> = {}) => {
-			//@ts-ignore
-			if (state.entries.findIndex((e) => e.id == 'new') === -1) {
-				state.entries.unshift(
-					//@ts-ignore
-					getDerivedStateFromProps(
-						{
-							id: 'new',
-							date_created: new Date().toISOString(),
-							date_updated: new Date().toISOString(),
-							html: "After I've installed Astral Poet today, I will make a diary entry every day from now on. In case I forget to make an entry, the app will remind me with a notification in the evening. In addition to photos, videos, audio recordings or other files, I can also add a location, tags or people to my diary entries.✍ I can use it on all my devices and synchronize the journal with the sync button on the main page. I am already looking forward to revisiting all those memories in a few months or years. ✨",
-						},
-						entry,
-					),
-				)
+		deleteEntry: (state, entryId: Entry['id']) => {
+			const entryIndex = state.entries.findIndex((entry) => entry.id == entryId)
+
+			if (entryIndex !== -1) {
+				state.entries.splice(entryIndex, 1)
 			}
 		},
 	},
@@ -88,13 +77,7 @@ export const entriesSlice = createReducer({
 
 			if (file) {
 				loadJSON(file).then(async (entries: unknown) => {
-					const payload = (entries as ImportedEntry[]).map(
-						(entry: ImportedEntry) => {
-							const newEntry = { ...entry } as unknown as Entry
-
-							return newEntry
-						},
-					)
+					const payload = formattedEntries(entries)
 
 					await getEntriesDb(payload, (entries) =>
 						dispatch(actions.initializeEntries(entries)),
@@ -102,25 +85,14 @@ export const entriesSlice = createReducer({
 				})
 			}
 		},
-
 		exportEntries: () => async (_dispatch, getState) => {
 			exportFile(
 				formattedEntries(getState().entries),
 				`Astral-Poet-Entries-${new Date()}`,
 			)
 		},
-
 		saveEntriesToDb: () => async (_dispatch, getState) => {
-			const db = indexedDB.open(INDEX_DB_KEY, INDEX_DB_VERSION)
-
-			db.onsuccess = async () => {
-				const transaction = db.result.transaction('entries', 'readwrite')
-				const store = transaction.objectStore('entries')
-
-				getState().entries.forEach((entry) => {
-					store.put(entry)
-				})
-			}
+			saveEntriesToDb(getState().entries)
 		},
 	}
 })

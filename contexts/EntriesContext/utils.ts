@@ -1,5 +1,5 @@
-import { getValidDate, isString } from '@/packages/utils/src'
-import { Entry, ImportedEntry } from './types'
+import { getValidDate, isArray, isString } from '@/packages/utils/src'
+import { Entry } from './types'
 
 export const getStringFromObject = (obj: Object, key = 'name') => {
 	if (!Array.isArray(obj)) return obj
@@ -96,7 +96,21 @@ export const stringToBoolTransform = (
 	return false
 }
 
-export const entryKeyTransform = (entry: Entry | ImportedEntry) =>
+export const jsonParseDates = (_key: string, value: unknown) =>
+	getValidDate(value, true)
+
+export const arrayOfObjectsTransform = (
+	EntryFiles: string,
+	shouldExport = true,
+) => {
+	if (shouldExport) {
+		return JSON.stringify(EntryFiles)
+	}
+
+	return JSON.parse(EntryFiles || '[]', jsonParseDates)
+}
+
+export const entryKeyTransform = (entry: Entry) =>
 	Object.keys(entry).map((key) => {
 		const entryTransform: any = { key }
 
@@ -129,9 +143,9 @@ export const entryKeyTransform = (entry: Entry | ImportedEntry) =>
 			case '_calendarDate':
 				entryTransform.transform = entryDateTransform
 				break
-			// case 'EntryFiles':
-			// 	entryTransform.transform = arrayOfObjectsTransform
-			// break
+			case 'EntryFiles':
+				entryTransform.transform = arrayOfObjectsTransform
+				break
 
 			default:
 				entryTransform.transform = (e: any) => e
@@ -141,7 +155,7 @@ export const entryKeyTransform = (entry: Entry | ImportedEntry) =>
 	})
 
 export const getEntryTransform = (
-	entry: Entry | ImportedEntry,
+	entry: Entry,
 	returnObject = true,
 	shouldExport = true,
 ) =>
@@ -160,6 +174,10 @@ export const getEntryTransform = (
 		returnObject ? ({} as Entry) : ([] as any),
 	)
 
-export const formattedEntries = (entries: (Entry | ImportedEntry)[]) => {
-	return entries.map((entry) => getEntryTransform(entry))
+export const formattedEntries = (entries: unknown) => {
+	if (isArray(entries)) {
+		return entries.map((entry) => getEntryTransform(entry, true, false))
+	}
+
+	return []
 }

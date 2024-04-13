@@ -4,7 +4,7 @@ import App from 'next/app'
 import { ThemeProvider } from 'next-themes'
 import { EntriesContextProvider } from '@/contexts/EntriesContext'
 import { Entry } from '@/contexts/EntriesContext/types'
-import { AppPropsWithLayout } from '@/types'
+import { AppPropsWithLayout } from '@/packages/ui/src/types'
 
 import '@/styles/globals.css'
 

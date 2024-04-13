@@ -1,14 +1,13 @@
 import { EntriesActions } from '@/contexts/EntriesContext'
 import { Entry } from '@/contexts/EntriesContext/types'
 
-export interface EntryMapStateToProps extends Entry {}
+export interface EntryMapStateToProps {}
 
 export interface EntryMapDispatchToProps {
 	setEntryValue: typeof EntriesActions.setEntryValue
-	saveEntriesToDb: typeof EntriesActions.saveEntriesToDb
 }
 export interface EntryOwnProps {
-	entryId: Entry['id'] | string
+	entry?: Entry
 }
 
 export interface EntryConnectedProps

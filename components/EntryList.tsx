@@ -40,9 +40,11 @@ export default connect({
 	mapStateToPropsOptions: [
 		{
 			context: EntriesStateContext,
-			mapStateToProps: (entriesState: EntriesContextState) => ({
-				entries: entriesState.entries,
-			}),
+			mapStateToProps: (entriesState: EntriesContextState) => {
+				return {
+					entries: entriesState.entries,
+				}
+			},
 		},
 	],
 })(EntryList)

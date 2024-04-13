@@ -1,5 +1,6 @@
 import type { ComponentType, ReactNode } from 'react'
 import type { NextPage } from 'next'
+import { AppProps } from 'next/app'
 
 export type RequiredNotNull<T> = {
 	[P in keyof T]: NonNullable<T[P]>
@@ -18,6 +19,10 @@ export type LayoutProps = {
 
 export type NextPageWithLayout<P = any> = NextPage<P> & {
 	Layout?: ComponentType<LayoutProps>
+}
+
+export type AppPropsWithLayout<P = any> = AppProps<P> & {
+	Component: NextPageWithLayout<P>
 }
 
 export type NextAppInitialProps<P = any> = {
