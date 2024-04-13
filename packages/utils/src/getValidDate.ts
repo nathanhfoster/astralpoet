@@ -13,7 +13,7 @@ const getValidIsoString = (date: Date) => {
 	return date
 }
 
-const getValidDate = (s: unknown, getIsoString = false) => {
+const getValidDate = (s: any, getIsoString = false) => {
 	if (s instanceof Date) {
 		return getIsoString ? getValidIsoString(s) : s.toLocaleDateString('en-CA')
 	}
